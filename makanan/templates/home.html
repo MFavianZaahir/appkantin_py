@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <br/>
+    kategori: <a class="btn btn-primary" href="{% url 'home' %}">Semua</a>
+
+    {% for kantin in kantins %}
+        <a class="btn btn-primary" href="?kantin_id={{ kantin.id }}">{{ kantin.nama }}</a>
+    {% endfor %}
+
+    <form action="">
+        <div class="mb-3">
+            <label class="form-label">Cari Makanan:</label>
+            <input type="text" name="nama" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    {% if searchMakanan %}
+        Pencarian untuk <strong>{{ searchMakanan }}</strong>
+    {% endif %}
+
+    <br/>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for makanan in makanans %}
+            <div class="card mx-3" style="width: 18rem;">
+                <img src="{{ makanan.gambar.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ makanan.nama }}</h5>
+                    <p class="card-text">Makanan Sebanyak {{ makanan.stok }} di {{ makanan.kantin }}</p>
+                    <a href="{% url 'detail' makanan.id %}" class="btn btn-primary">See</a>
+                </div>
+            </div>                  
+        {% endfor %}
+    </div> 
+
+{% endblock content %}
+
+<!-- <br/>
+kategori: <a class="btn btn-primary" href="{% url 'home' %}">Semua</a>
+
+{% for category in categories %}
+    <a class="btn btn-primary" href="?category_id={{ category.id }}">{{ category.name }}</a>
+{% endfor %}
+
+<form action="">
+    <div class="mb-3">
+        <label class="form-label">Cari Buku:</label>
+        <input type="text" name="judul" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+{% if searchJudul %}
+    Pencarian untuk <strong>{{ searchJudul }}</strong>
+{% endif %}
+
+<br/>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for book in books %}
+    <div class="col">
+        <div class="card">
+            <img alt="" class="card-img-top" src="{{ book.image.url }}"  />
+            <div class="card-body">
+                <h5 class="card-title fw-bold">{{ book.title }} | {{ book.author }} | {{ book.release_date|date:"d-m-Y" }}</h5>
+                <p class="card-text">
+                    {{ book.description }}
+                    <br/>
+                    <br>
+                    {{ book.isbn }} | {{ book.page_count }} | {{ book.category.name }}
+                </p>
+                <a class="btn btn-primary" href="{% url 'detail' book.id %}">Detail</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div> -->
